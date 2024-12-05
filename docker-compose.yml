@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres
+    command: -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
+    restart: always
+    volumes:
+      - /root/postgres-database/data:/var/lib/postgresql/data
+      - /root/postgres-database/shared:/shared
+      - /root/postgres-database/ssl/server.crt:/var/lib/postgresql/server.crt
+      - /root/postgres-database/ssl/server.key:/var/lib/postgresql/server.key
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: administrator
+      POSTGRES_PASSWORD: secrets
+    ports:
+      - "0.0.0.0:22123:1234"
+
